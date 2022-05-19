@@ -15,15 +15,19 @@ export default function UserDetails() {
 
   const { posts, users } = React.useContext(PostsContext);
 
+  React.useEffect(() => {
+    
+  }, []);
+
   return (
     <View>
         
-        <Text>{users[userId].name}</Text>
-        <Text>{users[userId].username}</Text>
-        <Text>{users[userId].phone}</Text>
-        <Text>Cidade: {users[userId].address.city}</Text>
-        <Text>Empresa: {users[userId].company.name}</Text>
-        <Text>Site: {users[userId].website}</Text>
+        <Text>Nome: {users[userId-1].name}</Text>
+        <Text>UserName: {users[userId-1].username}</Text>
+        <Text>{users[userId-1].phone}</Text>
+        <Text>Cidade: {users[userId-1].address.city}</Text>
+        <Text>Empresa: {users[userId-1].company.name}</Text>
+        <Text>Site: {users[userId-1].website}</Text>
     </View>
 );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { IPost, PostsContext } from "../../context/PostContext";
 import {
@@ -10,6 +11,7 @@ import {
   ContainerPost,
   TextName,
   Avatar,
+  ButtonPost,
 } from "./styles";
 
 interface ScreenNavigationProp {
@@ -22,6 +24,7 @@ export default function PostsList() {
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
   const handleUserDetails = (userId: number) => {
+    console.log(userId);
     navigate("UserDetails", { userId });
   };
 
@@ -33,7 +36,7 @@ export default function PostsList() {
         renderItem={({ item }) => (
           <ContainerPost style={{ marginBottom: 20 }}>
             <HeaderPost onPress={() => handleUserDetails(item.userId)}>
-              <Avatar source={require('../../assets/avatar1.png')}/>
+              <Avatar source={require("../../assets/avatar1.png")} />
               <TextName>
                 {
                   users[
@@ -44,11 +47,14 @@ export default function PostsList() {
                 }
               </TextName>
             </HeaderPost>
-            
+
             <TouchPost onPress={() => {}}>
               <TitlePost>{item.title}</TitlePost>
             </TouchPost>
-           
+
+            <ButtonPost onPress={() => {}}>
+              <MaterialIcons name="read-more" size={35} color="black" />
+            </ButtonPost>
           </ContainerPost>
         )}
       />

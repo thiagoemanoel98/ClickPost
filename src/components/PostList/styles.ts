@@ -44,3 +44,9 @@ export const TitlePost = styled.Text`
 
 export const TouchPost = styled.TouchableOpacity`
 `;
+
+export const ButtonPost = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+`;

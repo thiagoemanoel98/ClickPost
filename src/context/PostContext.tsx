@@ -60,6 +60,7 @@ export interface IPostsUser {
 interface IPostsContext {
     posts: IPost[],
     users: IUser[],
+    loading: boolean,
 }
 
 export const PostsContext = React.createContext<IPostsContext>(
@@ -69,26 +70,24 @@ export const PostsContext = React.createContext<IPostsContext>(
 export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
     const [posts, setPosts] = React.useState<IPost[]>([]);
     const [users, setUsers] = React.useState<IUser[]>([]);
-    const [postsUsers, setPostsUsers] = React.useState<IPostsUser[]>([]);
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         async function loadPosts() {
             const response = await api.get<IPost[]>("/posts");
-            setPosts(response.data);
-          }
-          
-          async function loadUsers() {
-            const response = await api.get<IUser[]>("/users");
-       
-            setUsers(response.data); // PAREI AQUII
-          }
+            const response2 = await api.get<IUser[]>("/users");
 
-          loadPosts();
-          loadUsers();
+            if(response && response2){                
+                setPosts(response.data);    
+                setUsers(response2.data);
+                setLoading(false);
+            }            
+          }
+          loadPosts(); 
     }, []);
 
     return(
-        <PostsContext.Provider value={{posts: posts, users}}>
+        <PostsContext.Provider value={{posts: posts, users, loading}}>
             {children}
         </PostsContext.Provider>
     );
