@@ -2,5 +2,5 @@ import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  background-color: #191A32;
+  background-color: #E5E5E5;
 `;

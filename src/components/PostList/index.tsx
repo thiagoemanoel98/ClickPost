@@ -4,11 +4,12 @@ import { useNavigation } from "@react-navigation/native";
 
 import { IPost, PostsContext } from "../../context/PostContext";
 import {
-  UserButton,
+  HeaderPost,
   TitlePost,
   TouchPost,
   ContainerPost,
   TextName,
+  Avatar,
 } from "./styles";
 
 interface ScreenNavigationProp {
@@ -31,7 +32,8 @@ export default function PostsList() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <ContainerPost style={{ marginBottom: 20 }}>
-            <UserButton onPress={() => handleUserDetails(item.userId)}>
+            <HeaderPost onPress={() => handleUserDetails(item.userId)}>
+              <Avatar source={require('../../assets/avatar1.png')}/>
               <TextName>
                 {
                   users[
@@ -41,7 +43,7 @@ export default function PostsList() {
                   ].name
                 }
               </TextName>
-            </UserButton>
+            </HeaderPost>
             
             <TouchPost onPress={() => {}}>
               <TitlePost>{item.title}</TitlePost>
