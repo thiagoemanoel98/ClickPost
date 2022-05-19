@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -9,14 +9,14 @@ import { PostsProvider } from "./src/context/PostContext";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <PostsProvider>
           <Routes />
         </PostsProvider>
         <StatusBar style="light" translucent={false} />
       </NavigationContainer>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -24,6 +24,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    marginTop: 10,
   },
 });
