@@ -5,6 +5,7 @@ export const Container = styled.View`
   margin-top: 8px;
   //background-color: #FFF;
   border-radius: 8px;
+  
   padding: 11px;
 `;
 
@@ -12,8 +13,7 @@ export const HeaderDeatils = styled.View`
   margin-top: 5px;
   margin-bottom: 12px;
   justify-content: flex-start;
-  align-items: center;
- 
+  align-items: center; 
 `;
 
 export const Avatar = styled.Image`
@@ -21,6 +21,7 @@ export const Avatar = styled.Image`
   height: 100px;
   border-radius: 50px;
   border-width: 2px;
+  border-color: rgba(51, 176, 246, 1);
 `;
 
 export const UserName = styled.Text`

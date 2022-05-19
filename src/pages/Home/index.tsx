@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, ActivityIndicator, View } from "react-native";
+import { Feather } from '@expo/vector-icons';
 
 import PostsList from "../../components/PostList";
 import { IPost, PostsContext } from "../../context/PostContext";
-import { Container } from "./styles";
+import { Container, ButtonPost } from "./styles";
 import Header from "../../components/Header";
+
 
 export default function App() {
   const { posts, users, loading } = React.useContext(PostsContext);
@@ -21,8 +23,12 @@ export default function App() {
       ) : (
         <PostsList />
       )}
+
+      <ButtonPost onPress={() => {}}>
+        <Feather name="edit-2" color="#FFF" size={25} />
+      </ButtonPost>
     </Container>
   );
 }
 
-const styles = StyleSheet.create({});
+
