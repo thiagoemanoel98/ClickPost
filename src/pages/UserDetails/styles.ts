@@ -20,7 +20,6 @@ export const Avatar = styled.Image`
   width: 100px;
   height: 100px;
   border-radius: 50px;
-  
   border-width: 2px;
 `;
 
@@ -34,11 +33,14 @@ export const UserName = styled.Text`
 export const SectionArea = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #E5E5E5;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 5px;
+
 `;
 
 export const SectionTitle = styled.Text`
-  margin-top: 15px;
-  margin-bottom: 5px;
   font-weight: bold;
   color: rgba(51, 176, 246, 1);
   font-size: 20px;
@@ -46,6 +48,7 @@ export const SectionTitle = styled.Text`
 
 export const Content = styled.View`
   padding-top: 12px;
+  margin-bottom: 12px;
 `;
 
 export const Info = styled.View`

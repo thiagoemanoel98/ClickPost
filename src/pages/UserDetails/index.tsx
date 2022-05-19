@@ -1,7 +1,10 @@
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons'; 
+
+
 
 import { IPost, PostsContext } from "../../context/PostContext";
 import {
@@ -37,6 +40,7 @@ export default function UserDetails() {
 
         <SectionArea>
           <SectionTitle>Informações Pessoais:</SectionTitle>
+          <FontAwesome name="user" size={24} color="rgba(51, 176, 246, 1)" />
         </SectionArea>
         <Content>
           <Info>
@@ -63,6 +67,7 @@ export default function UserDetails() {
 
         <SectionArea>
           <SectionTitle>Endereço:</SectionTitle>
+          <MaterialIcons name="house" size={30} color="rgba(51, 176, 246, 1)" />
         </SectionArea>
 
         <Content>
@@ -94,6 +99,7 @@ export default function UserDetails() {
 
         <SectionArea>
           <SectionTitle>Empresa</SectionTitle>
+          <MaterialIcons name="business-center" size={30} color="rgba(51, 176, 246, 1)" />
         </SectionArea>
         <Content>
           <Info>
