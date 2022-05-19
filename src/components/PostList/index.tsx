@@ -24,7 +24,6 @@ export default function PostsList() {
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
   const handleUserDetails = (userId: number) => {
-    console.log(userId);
     navigate("UserDetails", { userId });
   };
 

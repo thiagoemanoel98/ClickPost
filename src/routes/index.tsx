@@ -13,11 +13,18 @@ export default function Routes() {
           name="Home"
           component={Home}
           options={{ headerShown: false }}
+          
         />
         <Stack.Screen
           name="UserDetails"
           component={UserDetails}
-          options={{ headerShown: true }}
+          options={{
+            title: 'Detalhes do Usuário',
+            headerTintColor: '#9E9E9E',
+            headerStyle: {
+              backgroundColor: '#000',
+            },
+          }}
         />
        
       </Stack.Navigator>
