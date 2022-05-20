@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { IUser, PostsContext } from "../../context/PostContext";
 import { UserList } from "../../components/UserList";
 
+
 export default function SelectUser() {
-  const { posts, users } = React.useContext(PostsContext);
+  const { users } = React.useContext(PostsContext);
 
   return (
     <View>
