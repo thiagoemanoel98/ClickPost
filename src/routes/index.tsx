@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../pages/Home";
 import UserDetails from "../pages/UserDetails";
 import UserPost from "../pages/UserPost";
+import EditPost from "../pages/EditPost";
 import SelectUser from "../pages/SelectUser";
 import NewPost from "../pages/NewPost";
 
@@ -22,7 +23,7 @@ export default function Routes() {
         component={UserDetails}
         options={{
           title: "Detalhes do Usuário",
-          headerTintColor: "#9E9E9E",
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
           },
@@ -34,7 +35,7 @@ export default function Routes() {
         component={UserPost}
         options={{
           title: "Postagem do Usuário",
-          headerTintColor: "#9E9E9E",
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
           },
@@ -46,7 +47,7 @@ export default function Routes() {
         component={SelectUser}
         options={{
           title: "Selecione um usuário",
-          headerTintColor: "#9E9E9E",
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
           },
@@ -64,6 +65,19 @@ export default function Routes() {
           },
         }}
       />
+
+      <Stack.Screen
+        name="EditPost"
+        component={EditPost}
+        options={{
+          title: "Editar Postagem",
+          headerTintColor: "#fff",
+          headerStyle: {
+            backgroundColor: "#000",
+          },
+        }}
+      />
+
     </Stack.Navigator>
   );
 }

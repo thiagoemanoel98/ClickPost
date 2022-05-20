@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
+import { View, Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
 
 import { PostsContext } from "../../context/PostContext";
 import {
@@ -26,25 +25,12 @@ interface RouteParams {
   idUser: number;
 }
 
-interface ScreenNavigationProp {
-  navigate: (screen: string, params?: unknown) => void;
-}
-
-export default function UserPost() {
+export default function EditPost() {
   const { posts, users } = React.useContext(PostsContext);
   const route = useRoute();
   const { id, idUser } = route.params as RouteParams; // Id Post
 
-  const navigation = useNavigation();
-  const { navigate } = useNavigation<ScreenNavigationProp>();
-
-  // Navegar para uma pagina de Edição
-  const handleEdit = () => {
-    navigate('EditPost', {id, idUser});
-  }
-
-  // Perguntar se quer exluir e, então, escluir
-  const handleDelete = () => {
+  const handleEditPost = () => {
     console.log('Delete');
   }
 
@@ -58,10 +44,11 @@ export default function UserPost() {
       <LabelTitle>Título:</LabelTitle>
       <AreaTitle>
         <InputTitle
-          placeholder="Digite o título"
           value={posts[id-1].title}
-          editable={false}
+          editable={true}
           multiline={true}
+          autoCorrect={true}
+          maxLength={100}
           placeholderTextColor="rgba(0, 0, 0, 0.25)"
         />
       </AreaTitle>
@@ -69,22 +56,20 @@ export default function UserPost() {
       <LabelTitle>Conteúdo:</LabelTitle>
       <AreaBody>
         <InputBody
-          placeholder="Digite a publicação"
           value={posts[id-1].body}
-          editable={false}
+          editable={true}
+          autoCorrect={true}
           multiline={true}
+          maxLength={300}
           placeholderTextColor="rgba(0, 0, 0, 0.25)"
         />
       </AreaBody>
 
       <ActionsArea>
-        <ButtonEdit onPress={() => handleEdit()}>
-          <Text style = {{fontSize: 30}}>Editar</Text>
+        <ButtonEdit onPress={() => handleEditPost()}>
+          <Text style = {{fontSize: 30}}>Confirmar Edição</Text>
         </ButtonEdit>
-
-        <ButtonDelete onPress={() => handleDelete()}>
-        <Text style = {{fontSize: 30}}>Excluir</Text>
-        </ButtonDelete>
+     
       </ActionsArea>
     </Container>
   );
