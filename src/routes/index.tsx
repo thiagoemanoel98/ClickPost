@@ -58,7 +58,7 @@ export default function Routes() {
         component={NewPost}
         options={{
           title: "Nova Postagem",
-          headerTintColor: "#9E9E9E",
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
           },

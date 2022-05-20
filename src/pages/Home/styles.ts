@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #e5e5e5;
+  padding-bottom: 30px;
 `;
 
 export const ButtonPost = styled.TouchableOpacity`

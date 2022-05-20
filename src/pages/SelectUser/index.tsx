@@ -13,7 +13,7 @@ export default function SelectUser() {
     <View>
       <View style={{ marginBottom: 12 }}>
         <FlatList
-          data={users as unknown as IUser[]}
+          data={users}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <UserList user={item} />}
         />

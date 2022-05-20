@@ -62,6 +62,7 @@ interface IPostsContext {
     posts: IPost[],
     users: IUser[],
     loading: boolean,
+    addNewPost: (post: IPost, user: IUser) => {},
 }
 
 export const PostsContext = React.createContext<IPostsContext>(
@@ -98,6 +99,7 @@ export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
                 const response = await api.get<IPost[]>("/posts");
                 const response2 = await api.get<IUser[]>("/users");
 
+                
                 await AsyncStorage.setItem(PostsKey, JSON.stringify(response.data))
                 .then( ()=>{
                         console.log('Posts salvos com sucesso!')
@@ -126,16 +128,24 @@ export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
 
 
 
-    const addInStorage = async (post: IPost, user: IUser) => {
+    const addNewPost = async (post: IPost, user: IUser) => {
+        
+        let newObj:IPost[] = [];
+        newObj = [... posts, post]
+
+        //console.log(newObj.reverse());
+        setPosts(newObj); 
+               
         try {
-
+            await AsyncStorage.setItem(PostsKey, JSON.stringify(newObj));
+            alert('Storage Atualizado');
         } catch (error) {
-
+            console.log(error);
         }
     }
 
     return(
-        <PostsContext.Provider value={{posts: posts, users, loading}}>
+        <PostsContext.Provider value={{posts: posts, users, loading, addNewPost }}>
             {children}
         </PostsContext.Provider>
     );

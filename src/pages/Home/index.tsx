@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, ActivityIndicator, View, FlatList } from "react-native";
+import React from "react";
+import { ActivityIndicator, View, FlatList } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -32,7 +32,7 @@ export default function Home() {
       ) : (
         <View>
           <FlatList
-            data={posts as unknown as IPost[]}
+            data={posts.reverse()}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => <PostList post={item} user={users[users.findIndex((x) => x.id.toString() === item.userId.toString())]} />}
           />  

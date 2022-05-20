@@ -22,8 +22,6 @@ interface Props {
   user: IUser;
 }
 
-
-
 export const PostList: React.FC<Props> = (props) => {
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
