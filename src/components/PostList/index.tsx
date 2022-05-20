@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { FlatList, View, Text, TouchableOpacity } from "react-native";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { IPost, PostsContext } from "../../context/PostContext";
+import { IPost, IUser } from "../../context/PostContext";
 import {
   HeaderPost,
   TitlePost,
@@ -18,8 +17,12 @@ interface ScreenNavigationProp {
   navigate: (screen: string, params?: unknown) => void;
 }
 
-export default function PostsList() {
-  const { posts, users } = React.useContext(PostsContext);
+interface Props {
+  post: IPost;
+  user: IUser;
+}
+
+export const PostList: React.FC<Props> = (props) => {
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
   const handleUserDetails = (userId: number) => {
@@ -32,35 +35,23 @@ export default function PostsList() {
   };
 
   return (
-    <View style={{ marginBottom: 12 }}>
-      <FlatList
-        data={posts as unknown as IPost[]}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <ContainerPost style={{ marginBottom: 20 }}>
-            <HeaderPost onPress={() => handleUserDetails(item.userId)}>
-              <Avatar source={require("../../assets/avatar1.png")} />
-              <TextName>
-                {
-                  users[
-                    users.findIndex(
-                      (x) => x.id.toString() === item.userId.toString()
-                    )
-                  ].name
-                }
-              </TextName>
-            </HeaderPost>
+    <ContainerPost style={{ marginBottom: 20 }}>
+      <HeaderPost
+        onPress={() => {
+          handleUserDetails(props.user.id);
+        }}
+      >
+        <Avatar source={require("../../assets/avatar1.png")} />
+        <TextName>{props.user.name}</TextName>
+      </HeaderPost>
 
-            <TouchPost onPress={() => handleUserPost(item.id)}>             
-              <TitlePost>{item.title}</TitlePost>
-            </TouchPost>
+      <TouchPost onPress={() => handleUserPost(props.post.id)}>
+        <TitlePost>{props.post.title}</TitlePost>
+      </TouchPost>
 
-            <ButtonPost onPress={() => handleUserPost(item.id)}>
-              <MaterialIcons name="read-more" size={35} color="black" />
-            </ButtonPost>
-          </ContainerPost>
-        )}
-      />
-    </View>
+      <ButtonPost onPress={() => handleUserPost(props.post.id)}>
+        <MaterialIcons name="read-more" size={35} color="black" />
+      </ButtonPost>
+    </ContainerPost>
   );
-}
+};

@@ -17,3 +17,4 @@ export const ButtonPost = styled.TouchableOpacity`
   align-items: center;
   z-index: 99;
 `;
+
