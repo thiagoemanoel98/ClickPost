@@ -58,7 +58,6 @@ export default function NewPost() {
     let [lastPost] = posts.slice(-1);
     let user = users[userId - 1];
   
-
     let NewPost = {
       userId: userId,
       id: lastPost.id + 1,

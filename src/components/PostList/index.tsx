@@ -30,8 +30,8 @@ export const PostList: React.FC<Props> = (props) => {
   };
 
   // ID do post
-  const handleUserPost = (id: number) => {
-    navigate("UserPost", { id });
+  const handleUserPost = (id: number, idUser: number) => {
+    navigate("UserPost", { id, idUser });
   };
 
   return (
@@ -45,11 +45,11 @@ export const PostList: React.FC<Props> = (props) => {
         <TextName>{props.user.name}</TextName>
       </HeaderPost>
 
-      <TouchPost onPress={() => handleUserPost(props.post.id)}>
+      <TouchPost onPress={() => handleUserPost(props.post.id, props.post.userId)}>
         <TitlePost>{props.post.title}</TitlePost>
       </TouchPost>
 
-      <ButtonPost onPress={() => handleUserPost(props.post.id)}>
+      <ButtonPost onPress={() => handleUserPost(props.post.id, props.post.userId)}>
         <MaterialIcons name="read-more" size={35} color="black" />
       </ButtonPost>
     </ContainerPost>

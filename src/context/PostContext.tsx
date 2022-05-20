@@ -141,7 +141,7 @@ export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
             alert('Postagem realizada');
             
         } catch (error) {
-            alert('Algo deu errado :(');
+            alert('Algo deu errado :( ');
             console.log(error);
         }
     }

@@ -10,7 +10,7 @@ export const HeaderPage = styled.View`
     align-items: center;
     margin-left: 8px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `;
 
 export const PageTitle = styled.Text`
@@ -57,6 +57,7 @@ export const InputTitle = styled.TextInput`
     margin: 10px;
     color: #000;
     font-size: 20px;
+    
 `;  
 
 export const InputBody = styled.TextInput`
@@ -64,7 +65,7 @@ export const InputBody = styled.TextInput`
     margin: 10px;
     color: #000;
     font-size: 20px;
-    
+    text-align: justify;    
 `;
 
 export const Button = styled.TouchableOpacity`
