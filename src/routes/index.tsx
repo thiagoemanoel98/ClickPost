@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../pages/Home";
 import UserDetails from "../pages/UserDetails";
 import UserPost from "../pages/UserPost";
+import SelectUser from "../pages/SelectUser";
+import NewPost from "../pages/NewPost";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +34,30 @@ export default function Routes() {
         component={UserPost}
         options={{
           title: "Postagem do Usuário",
+          headerTintColor: "#9E9E9E",
+          headerStyle: {
+            backgroundColor: "#000",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="SelectUser"
+        component={SelectUser}
+        options={{
+          title: "Selecione um usuário",
+          headerTintColor: "#9E9E9E",
+          headerStyle: {
+            backgroundColor: "#000",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="NewPost"
+        component={NewPost}
+        options={{
+          title: "Nova Postagem",
           headerTintColor: "#9E9E9E",
           headerStyle: {
             backgroundColor: "#000",
