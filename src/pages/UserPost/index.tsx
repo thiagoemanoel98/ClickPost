@@ -15,10 +15,8 @@ export default function UserPost() {
 
   return (
     <View>
-
       <Text>Id Post: {id}</Text>
-      
-      <Text>Autor: {users[posts[id-1].userId -1].name }</Text>
+      <Text>Autor: {users[posts[id-1].userId-1].name }</Text>
       <Text>Titulo: {posts[id-1].title}</Text>
       <Text>Conteudo: {posts[id-1].body}</Text>
     </View>

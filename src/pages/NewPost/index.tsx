@@ -22,11 +22,17 @@ interface RouteParams {
   userId: number;
 }
 
+interface ScreenNavigationProp {
+  navigate: (screen: string, params?: unknown) => void;
+}
+
 export default function NewPost() {
   const route = useRoute();
   const { userId } = route.params as RouteParams;
   const { users, posts, addNewPost } = React.useContext(PostsContext);
+
   const navigation = useNavigation();
+  const { navigate } = useNavigation<ScreenNavigationProp>();
 
   const [body, setBody] = React.useState("");
   const [title, setTitle] = React.useState("");
@@ -51,7 +57,7 @@ export default function NewPost() {
 
     let [lastPost] = posts.slice(-1);
     let user = users[userId - 1];
-    //console.log(lastPost.id);
+  
 
     let NewPost = {
       userId: userId,
@@ -61,8 +67,7 @@ export default function NewPost() {
     };
 
     addNewPost(NewPost, user);
-    setBody('');
-    setTitle('');
+    navigate("Home");
   };
 
   return (

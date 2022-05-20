@@ -83,7 +83,7 @@ export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
             const dadosUser = await AsyncStorage.getItem(UsersKey);
             const dadosPost = await AsyncStorage.getItem(PostsKey);            
 
-            // Existe no Storage? 
+            // Existe no Storage? dadosPost && dadosUser 
             if(dadosPost && dadosUser) {
                 setPosts(JSON.parse(dadosPost));
                 setUsers(JSON.parse(dadosUser));
@@ -132,14 +132,16 @@ export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
         
         let newObj:IPost[] = [];
         newObj = [... posts, post]
-
-        //console.log(newObj.reverse());
+        
         setPosts(newObj); 
-               
+        
+        //console.log('Objeto cadastrado: ', post);
         try {
             await AsyncStorage.setItem(PostsKey, JSON.stringify(newObj));
-            alert('Storage Atualizado');
+            alert('Postagem realizada');
+            
         } catch (error) {
+            alert('Algo deu errado :(');
             console.log(error);
         }
     }

@@ -32,7 +32,7 @@ export default function Home() {
       ) : (
         <View>
           <FlatList
-            data={posts.reverse()}
+            data={posts.slice().reverse()}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => <PostList post={item} user={users[users.findIndex((x) => x.id.toString() === item.userId.toString())]} />}
           />  
