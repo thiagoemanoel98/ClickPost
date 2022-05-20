@@ -4,9 +4,7 @@ import { useRoute } from "@react-navigation/native";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
 
-
-
-import { IPost, PostsContext } from "../../context/PostContext";
+import { PostsContext } from "../../context/PostContext";
 import {
   Container,
   Avatar,
@@ -28,7 +26,7 @@ export default function UserDetails() {
   const route = useRoute();
   const { userId } = route.params as RouteParams;
 
-  const { posts, users } = React.useContext(PostsContext);
+  const { users } = React.useContext(PostsContext);
 
   return (
     <Container>

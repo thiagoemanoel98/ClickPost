@@ -1,4 +1,5 @@
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import api from '../services/api';
 
@@ -67,6 +68,9 @@ export const PostsContext = React.createContext<IPostsContext>(
     {} as IPostsContext,
 );
 
+const PostsKey = '@ClickPosts:Posts';
+const UsersKey = '@ClickPosts:Users';
+
 export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
     const [posts, setPosts] = React.useState<IPost[]>([]);
     const [users, setUsers] = React.useState<IUser[]>([]);
@@ -74,17 +78,61 @@ export const PostsProvider: React.FunctionComponent<IProps> = ({children}) => {
 
     React.useEffect(() => {
         async function loadPosts() {
-            const response = await api.get<IPost[]>("/posts");
-            const response2 = await api.get<IUser[]>("/users");
 
-            if(response && response2){                
-                setPosts(response.data);    
-                setUsers(response2.data);
+            const dadosUser = await AsyncStorage.getItem(UsersKey);
+            const dadosPost = await AsyncStorage.getItem(PostsKey);            
+
+            // Existe no Storage? 
+            if(dadosPost && dadosUser) {
+                setPosts(JSON.parse(dadosPost));
+                setUsers(JSON.parse(dadosUser));
+                
                 setLoading(false);
-            }            
+                console.log('Há dados no Async');
+
+                //await AsyncStorage.removeItem(PostsKey);
+                //await AsyncStorage.removeItem(UsersKey);
+
+            } else {
+                // Carregue novos dados da API
+                const response = await api.get<IPost[]>("/posts");
+                const response2 = await api.get<IUser[]>("/users");
+
+                await AsyncStorage.setItem(PostsKey, JSON.stringify(response.data))
+                .then( ()=>{
+                        console.log('Posts salvos com sucesso!')
+                    } )
+                    .catch( ()=>{
+                        console.log('Erro em salvar posts')
+                    } );
+                    
+                await AsyncStorage.setItem(UsersKey, JSON.stringify(response2.data))
+                .then( ()=>{
+                        console.log('Usuarios salvos com sucesso!')
+                    } )
+                    .catch( ()=>{
+                        console.log('Erro em salvar usuarios')
+                    } );
+
+                setPosts(response.data);
+                setUsers(response2.data);
+                
+                setLoading(false);
+            }
+            
           }
           loadPosts(); 
     }, []);
+
+
+
+    const addInStorage = async (post: IPost, user: IUser) => {
+        try {
+
+        } catch (error) {
+
+        }
+    }
 
     return(
         <PostsContext.Provider value={{posts: posts, users, loading}}>

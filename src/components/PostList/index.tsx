@@ -15,7 +15,6 @@ import {
 } from "./styles";
 
 interface ScreenNavigationProp {
-  goBack: () => void;
   navigate: (screen: string, params?: unknown) => void;
 }
 
@@ -25,6 +24,11 @@ export default function PostsList() {
 
   const handleUserDetails = (userId: number) => {
     navigate("UserDetails", { userId });
+  };
+
+  // ID do post
+  const handleUserPost = (id: number) => {
+    navigate("UserPost", { id });
   };
 
   return (
@@ -47,11 +51,11 @@ export default function PostsList() {
               </TextName>
             </HeaderPost>
 
-            <TouchPost onPress={() => {}}>
+            <TouchPost onPress={() => handleUserPost(item.id)}>             
               <TitlePost>{item.title}</TitlePost>
             </TouchPost>
 
-            <ButtonPost onPress={() => {}}>
+            <ButtonPost onPress={() => handleUserPost(item.id)}>
               <MaterialIcons name="read-more" size={35} color="black" />
             </ButtonPost>
           </ContainerPost>
