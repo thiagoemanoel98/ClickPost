@@ -123,51 +123,104 @@ export const PostsProvider: React.FC<IProps> = ({ children }) => {
     loadPosts();
   }, []);
 
+  /**
+   * Realiza uma requisição DELETE para a API
+   * Caso retorne sucesso (200), a postagem será salva no AsyncStorage
+   **/
   const deletePost = async (post: IPost) => {
-    const newArr = posts.filter((item) => item.id !== post.id);
-
-    try {
-      await AsyncStorage.setItem(PostsKey, JSON.stringify(newArr));
-      alert("Postagem apagada!");
-      setPosts(newArr);
-    } catch (error) {
-      alert("Algo deu errado :( ");
-      console.log(error);
-    }
+    api
+      .delete("/posts/" + post.id)
+      .then(async function (response) {
+        if (response.status === 200) {
+          const newArr = posts.filter((item) => item.id !== post.id);
+          try {
+            // Guardar no Async
+            await AsyncStorage.setItem(PostsKey, JSON.stringify(newArr));
+            alert("Postagem apagada!");
+            setPosts(newArr);
+          } catch (error) {
+            alert("Algo deu errado :( ");
+            console.log(error);
+          }
+        } else {
+          alert("Algo deu errado na Requisição (Ver log)");
+          console.log(response);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
+  /**
+   * Realiza uma requisição POST para a API
+   * Caso retorne sucesso (200), a postagem modificada será salva no AsyncStorage
+   **/
   const editPost = async (data: IPost) => {
-    const newArr = posts.map((obj) => {
-      if (obj.id === data.id) {
-        return data;
-      }
-      return obj;
-    });
-
-    // Guardar Async
-    try {
-      await AsyncStorage.setItem(PostsKey, JSON.stringify(newArr));
-      alert("Post alterado!");
-      setPosts(newArr);
-    } catch (error) {
-      alert("Algo deu errado :( ");
-      console.log(error);
+    // Na API, só existe registros com id <= 100
+    let id_api: number;
+    if (data.id > 100) {
+      id_api = 1;
+    } else {
+      id_api = data.id;
     }
+    api
+      .put(`/posts/${id_api}`, data)
+      .then(async function (response) {
+        if (response.status == 200) {
+          const newArr = posts.map((obj) => {
+            if (obj.id === data.id) {
+              return data;
+            }
+            return obj;
+          });
+
+          // Guardar no Async
+          try {
+            await AsyncStorage.setItem(PostsKey, JSON.stringify(newArr));
+            alert("Post alterado!");
+            setPosts(newArr);
+          } catch (error) {
+            alert("Algo deu errado :( ");
+            console.log(error);
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
+  /**
+   * Realiza uma requisição POST para a API
+   * Caso retorne sucesso (201), a postagem será salva no AsyncStorage
+   **/
   const addNewPost = async (post: IPost) => {
-    let newObj: IPost[] = [];
-    newObj = [...posts, post];
+    api
+      .post("/posts", post)
+      .then(async function (response) {
+        if (response.status == 201) {
+          // Cadastra o novo post...
+          let newObj: IPost[] = [];
+          newObj = [...posts, post];
 
-    setPosts(newObj);
-
-    try {
-      await AsyncStorage.setItem(PostsKey, JSON.stringify(newObj));
-      alert("Postagem realizada");
-    } catch (error) {
-      alert("Algo deu errado :( ");
-      console.log(error);
-    }
+          try {
+            // Guarda no Async
+            await AsyncStorage.setItem(PostsKey, JSON.stringify(newObj));
+            setPosts(newObj);
+            alert("Postagem realizada");
+          } catch (error) {
+            alert("Algo deu errado :( ");
+            console.log(error);
+          }
+        } else {
+          alert("Algo deu errado na Requisição (Ver log)");
+          console.log(response);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
