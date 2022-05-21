@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
+import React from "react";
+import { Text, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,11 +18,11 @@ import {
   PageTitle2,
   ButtonEdit,
   ButtonDelete,
-  ActionsArea
+  ActionsArea,
 } from "./styles";
 
 interface RouteParams {
-  post: IPost,
+  post: IPost;
   user: IUser;
 }
 
@@ -33,16 +33,30 @@ interface ScreenNavigationProp {
 export default function UserPost() {
   const route = useRoute();
   const { post, user } = route.params as RouteParams;
+  const { deletePost } = React.useContext(PostsContext);
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
-  // Navegar para uma pagina de Edição
   const handleEdit = () => {
-    navigate('EditPost', {post, user});
-  }
+    navigate("EditPost", { post, user });
+  };
 
   // Perguntar se quer exluir e, então, escluir
   const handleDelete = () => {
-    console.log('Delete');
+    Alert.alert("Atenção!", "Deseja realmente excluir esse Post?", [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "Continuar",
+        onPress: () => handleDeleteSuccess(),
+      },
+    ]);
+  };
+
+  const handleDeleteSuccess = () => {
+    deletePost(post);
+    navigate('Home');
   }
 
   return (
@@ -76,11 +90,11 @@ export default function UserPost() {
 
       <ActionsArea>
         <ButtonEdit onPress={() => handleEdit()}>
-          <Text style = {{fontSize: 30}}>Editar</Text>
+          <Text style={{ fontSize: 30 }}>Editar</Text>
         </ButtonEdit>
 
         <ButtonDelete onPress={() => handleDelete()}>
-        <Text style = {{fontSize: 30}}>Excluir</Text>
+          <Text style={{ fontSize: 30 }}>Excluir</Text>
         </ButtonDelete>
       </ActionsArea>
     </Container>

@@ -63,6 +63,7 @@ interface IPostsContext {
   loading: boolean;
   addNewPost: (post: IPost) => {};
   editPost: (data: IPost) => {};
+  deletePost: (post: IPost) => {};
 }
 
 export const PostsContext = React.createContext<IPostsContext>(
@@ -72,9 +73,7 @@ export const PostsContext = React.createContext<IPostsContext>(
 const PostsKey = "@ClickPosts:Posts";
 const UsersKey = "@ClickPosts:Users";
 
-export const PostsProvider: React.FC<IProps> = ({
-  children,
-}) => {
+export const PostsProvider: React.FC<IProps> = ({ children }) => {
   const [posts, setPosts] = React.useState<IPost[]>([]);
   const [users, setUsers] = React.useState<IUser[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -84,7 +83,7 @@ export const PostsProvider: React.FC<IProps> = ({
       const dadosUser = await AsyncStorage.getItem(UsersKey);
       const dadosPost = await AsyncStorage.getItem(PostsKey);
 
-      // Existe no Storage? dadosPost && dadosUser
+      // existe no Storage? dadosPost && dadosUser
       if (dadosPost && dadosUser) {
         setPosts(JSON.parse(dadosPost));
         setUsers(JSON.parse(dadosUser));
@@ -124,18 +123,27 @@ export const PostsProvider: React.FC<IProps> = ({
     loadPosts();
   }, []);
 
-  function getUserByPost (post: IPost) {
-    return users[users.findIndex((x) => x.id.toString() === post.userId.toString())];
-  }
+  const deletePost = async (post: IPost) => {
+    const newArr = posts.filter((item) => item.id !== post.id);
+
+    try {
+      await AsyncStorage.setItem(PostsKey, JSON.stringify(newArr));
+      alert("Postagem apagada!");
+      setPosts(newArr);
+    } catch (error) {
+      alert("Algo deu errado :( ");
+      console.log(error);
+    }
+  };
 
   const editPost = async (data: IPost) => {
-    const newArr = posts.map(obj => {
-        if (obj.id === data.id) {
-          return data;
-        }
-        return obj
-    })
-  
+    const newArr = posts.map((obj) => {
+      if (obj.id === data.id) {
+        return data;
+      }
+      return obj;
+    });
+
     // Guardar Async
     try {
       await AsyncStorage.setItem(PostsKey, JSON.stringify(newArr));
@@ -144,12 +152,10 @@ export const PostsProvider: React.FC<IProps> = ({
     } catch (error) {
       alert("Algo deu errado :( ");
       console.log(error);
-    } 
-
+    }
   };
 
   const addNewPost = async (post: IPost) => {
-    
     let newObj: IPost[] = [];
     newObj = [...posts, post];
 
@@ -166,7 +172,7 @@ export const PostsProvider: React.FC<IProps> = ({
 
   return (
     <PostsContext.Provider
-      value={{ posts: posts, users, loading, addNewPost, editPost }}
+      value={{ posts: posts, users, loading, addNewPost, editPost, deletePost }}
     >
       {children}
     </PostsContext.Provider>

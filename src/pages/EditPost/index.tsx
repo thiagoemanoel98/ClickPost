@@ -31,7 +31,7 @@ interface ScreenNavigationProp {
 }
 
 export default function EditPost() {
-  const { posts, users, editPost } = React.useContext(PostsContext);
+  const { editPost } = React.useContext(PostsContext);
   const route = useRoute();
   const { navigate } = useNavigation<ScreenNavigationProp>();
   const { post, user } = route.params as RouteParams; // Id Post
