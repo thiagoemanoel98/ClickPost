@@ -35,20 +35,30 @@ export default function EditPost() {
   const route = useRoute();
   const { navigate } = useNavigation<ScreenNavigationProp>();
   const { post, user } = route.params as RouteParams; // Id Post
- 
-  const [title, setTitle] = React.useState('');
-  const [body, setBody] = React.useState('');
+
+  const [title, setTitle] = React.useState("");
+  const [body, setBody] = React.useState("");
 
   const handleEditPost = () => {
-    const DATA = {
-      userId: user.id,
-      id: post.id,
-      title: title,
-      body: body,
-    };
+    if (title !== "" || body !== "") {
+      const DATA = {
+        userId: user.id,
+        id: post.id,
+        title: title,
+        body: body,
+      };
 
-    editPost(DATA);
-    navigate("Home");
+      if (title === "") {
+        DATA.title = post.title;
+      } else if (body === "") {
+        DATA.body = post.body;
+      }
+
+      editPost(DATA);
+      navigate("Home");
+    } else {
+      alert("Há campos vazios!");
+    }
   };
 
   return (
