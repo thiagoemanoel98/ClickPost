@@ -25,14 +25,14 @@ interface ScreenNavigationProp {
 export const UserList: React.FC<Props> = (props) => {
   const { navigate } = useNavigation<ScreenNavigationProp>();
   
-  const HandleNavigate = (userId: number) => {
-    navigate("NewPost", {userId});
+  const HandleNavigate = (user: IUser) => {
+    navigate("NewPost", {user});
   };
 
   return (
     <ContainerPost style={{ marginBottom: 20 }}>
 
-      <HeaderPost onPress={() => {HandleNavigate(props.user.id)}}>
+      <HeaderPost onPress={() => {HandleNavigate(props.user)}}>
         <Avatar source={require("../../assets/avatar1.png")} />
         <TextName>{props.user.name}</TextName>
       </HeaderPost>

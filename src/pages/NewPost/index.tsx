@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 
-import { PostsContext, IPost } from "../../context/PostContext";
+import { PostsContext, IUser } from "../../context/PostContext";
 import {
   Container,
   InputTitle,
@@ -19,7 +19,7 @@ import {
 } from "./styles";
 
 interface RouteParams {
-  userId: number;
+  user: IUser;
 }
 
 interface ScreenNavigationProp {
@@ -28,9 +28,8 @@ interface ScreenNavigationProp {
 
 export default function NewPost() {
   const route = useRoute();
-  const { userId } = route.params as RouteParams;
-  const { users, posts, addNewPost } = React.useContext(PostsContext);
-
+  const { user } = route.params as RouteParams;
+  const { posts, addNewPost } = React.useContext(PostsContext);
   const navigation = useNavigation();
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
@@ -56,16 +55,15 @@ export default function NewPost() {
     }
 
     let [lastPost] = posts.slice(-1);
-    let user = users[userId - 1];
 
     let NewPost = {
-      userId: userId,
+      userId: user.id,
       id: lastPost.id + 1,
       title: title,
       body: body,
     };
 
-    addNewPost(NewPost, user);
+    addNewPost(NewPost);
     navigate("Home");
   };
 
@@ -73,7 +71,7 @@ export default function NewPost() {
     <Container>
       <HeaderPage>
         <PageTitle>Autor:</PageTitle>
-        <PageTitle2> {users[userId - 1].name}</PageTitle2>
+        <PageTitle2> {user.name}</PageTitle2>
       </HeaderPage>
 
       <LabelTitle>Título:</LabelTitle>

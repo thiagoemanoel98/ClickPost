@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import {PostList} from "../../components/PostList";
-import { IPost, PostsContext } from "../../context/PostContext";
+import { getUserByPost, PostsContext } from "../../context/PostContext";
 import { Container, ButtonPost } from "./styles";
 import Header from "../../components/Header";
 

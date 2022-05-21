@@ -25,31 +25,30 @@ interface Props {
 export const PostList: React.FC<Props> = (props) => {
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
-  const handleUserDetails = (userId: number) => {
-    navigate("UserDetails", { userId });
+  const handleUserDetails = (user: IUser) => {
+    navigate("UserDetails", { user });
   };
 
-  // ID do post
-  const handleUserPost = (id: number, idUser: number) => {
-    navigate("UserPost", { id, idUser });
+  const handleUserPost = (post: IPost, user: IUser) => {
+    navigate("UserPost", { post, user });
   };
 
   return (
     <ContainerPost style={{ marginBottom: 20 }}>
       <HeaderPost
         onPress={() => {
-          handleUserDetails(props.user.id);
+          handleUserDetails(props.user);
         }}
       >
         <Avatar source={require("../../assets/avatar1.png")} />
         <TextName>{props.user.name}</TextName>
       </HeaderPost>
 
-      <TouchPost onPress={() => handleUserPost(props.post.id, props.post.userId)}>
+      <TouchPost onPress={() => handleUserPost(props.post, props.user)}>
         <TitlePost>{props.post.title}</TitlePost>
       </TouchPost>
 
-      <ButtonPost onPress={() => handleUserPost(props.post.id, props.post.userId)}>
+      <ButtonPost onPress={() => handleUserPost(props.post, props.user)}>
         <MaterialIcons name="read-more" size={35} color="black" />
       </ButtonPost>
     </ContainerPost>

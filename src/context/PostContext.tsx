@@ -61,7 +61,7 @@ interface IPostsContext {
   posts: IPost[];
   users: IUser[];
   loading: boolean;
-  addNewPost: (post: IPost, user: IUser) => {};
+  addNewPost: (post: IPost) => {};
   editPost: (data: IPost) => {};
 }
 
@@ -124,8 +124,11 @@ export const PostsProvider: React.FC<IProps> = ({
     loadPosts();
   }, []);
 
-  const editPost = async (data: IPost) => {
+  function getUserByPost (post: IPost) {
+    return users[users.findIndex((x) => x.id.toString() === post.userId.toString())];
+  }
 
+  const editPost = async (data: IPost) => {
     const newArr = posts.map(obj => {
         if (obj.id === data.id) {
           return data;
@@ -133,9 +136,6 @@ export const PostsProvider: React.FC<IProps> = ({
         return obj
     })
   
-    console.log('meu: ', data);
-    console.log('retorno: ', newArr[data.id-1]);
-
     // Guardar Async
     try {
       await AsyncStorage.setItem(PostsKey, JSON.stringify(newArr));
@@ -148,13 +148,13 @@ export const PostsProvider: React.FC<IProps> = ({
 
   };
 
-  const addNewPost = async (post: IPost, user: IUser) => {
+  const addNewPost = async (post: IPost) => {
+    
     let newObj: IPost[] = [];
     newObj = [...posts, post];
 
     setPosts(newObj);
 
-    //console.log('Objeto cadastrado: ', post);
     try {
       await AsyncStorage.setItem(PostsKey, JSON.stringify(newObj));
       alert("Postagem realizada");

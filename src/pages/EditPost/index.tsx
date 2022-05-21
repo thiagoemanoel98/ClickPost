@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 
-import { PostsContext } from "../../context/PostContext";
+import { IPost, IUser, PostsContext } from "../../context/PostContext";
 import {
   Container,
   InputTitle,
@@ -22,8 +22,8 @@ import {
 } from "./styles";
 
 interface RouteParams {
-  id: number;
-  idUser: number;
+  post: IPost;
+  user: IUser;
 }
 
 interface ScreenNavigationProp {
@@ -33,17 +33,16 @@ interface ScreenNavigationProp {
 export default function EditPost() {
   const { posts, users, editPost } = React.useContext(PostsContext);
   const route = useRoute();
-  const { id, idUser } = route.params as RouteParams; // Id Post
-  const navigation = useNavigation();
   const { navigate } = useNavigation<ScreenNavigationProp>();
-
+  const { post, user } = route.params as RouteParams; // Id Post
+ 
   const [title, setTitle] = React.useState('');
   const [body, setBody] = React.useState('');
 
   const handleEditPost = () => {
     const DATA = {
-      userId: idUser,
-      id: id,
+      userId: user.id,
+      id: post.id,
       title: title,
       body: body,
     };
@@ -56,14 +55,14 @@ export default function EditPost() {
     <Container>
       <HeaderPage>
         <PageTitle>Autor: </PageTitle>
-        <PageTitle2>{users[idUser - 1].name} </PageTitle2>
+        <PageTitle2>{user.name} </PageTitle2>
       </HeaderPage>
 
       <LabelTitle>Título:</LabelTitle>
       <AreaTitle>
         <InputTitle
           value={title}
-          placeholder={posts[id-1].title}
+          placeholder={post.title}
           editable={true}
           multiline={true}
           onChangeText={(text) => setTitle(text)}
@@ -76,7 +75,7 @@ export default function EditPost() {
       <LabelTitle>Conteúdo:</LabelTitle>
       <AreaBody>
         <InputBody
-          placeholder={posts[id-1].body}
+          placeholder={post.body}
           editable={true}
           autoCorrect={true}
           multiline={true}

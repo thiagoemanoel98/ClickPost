@@ -3,7 +3,7 @@ import { Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 
-import { PostsContext } from "../../context/PostContext";
+import { IPost, IUser, PostsContext } from "../../context/PostContext";
 import {
   Container,
   InputTitle,
@@ -22,8 +22,8 @@ import {
 } from "./styles";
 
 interface RouteParams {
-  id: number,
-  idUser: number;
+  post: IPost,
+  user: IUser;
 }
 
 interface ScreenNavigationProp {
@@ -31,16 +31,13 @@ interface ScreenNavigationProp {
 }
 
 export default function UserPost() {
-  const { posts, users } = React.useContext(PostsContext);
   const route = useRoute();
-  const { id, idUser } = route.params as RouteParams; // Id Post
-
-  const navigation = useNavigation();
+  const { post, user } = route.params as RouteParams;
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
   // Navegar para uma pagina de Edição
   const handleEdit = () => {
-    navigate('EditPost', {id, idUser});
+    navigate('EditPost', {post, user});
   }
 
   // Perguntar se quer exluir e, então, escluir
@@ -52,14 +49,14 @@ export default function UserPost() {
     <Container>
       <HeaderPage>
         <PageTitle>Autor: </PageTitle>
-        <PageTitle2>{users[idUser-1].name} </PageTitle2>
+        <PageTitle2>{user.name} </PageTitle2>
       </HeaderPage>
 
       <LabelTitle>Título:</LabelTitle>
       <AreaTitle>
         <InputTitle
           placeholder="Digite o título"
-          value={posts[id-1].title}
+          value={post.title}
           editable={false}
           multiline={true}
           placeholderTextColor="rgba(0, 0, 0, 0.25)"
@@ -70,7 +67,7 @@ export default function UserPost() {
       <AreaBody>
         <InputBody
           placeholder="Digite a publicação"
-          value={posts[id-1].body}
+          value={post.body}
           editable={false}
           multiline={true}
           placeholderTextColor="rgba(0, 0, 0, 0.25)"

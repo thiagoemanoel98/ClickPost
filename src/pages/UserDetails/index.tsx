@@ -4,7 +4,7 @@ import { useRoute } from "@react-navigation/native";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
 
-import { PostsContext } from "../../context/PostContext";
+import { IUser } from "../../context/PostContext";
 import {
   Container,
   Avatar,
@@ -19,21 +19,19 @@ import {
 } from "./styles";
 
 interface RouteParams {
-  userId: number;
+  user: IUser;
 }
 
 export default function UserDetails() {
   const route = useRoute();
-  const { userId } = route.params as RouteParams;
-
-  const { users } = React.useContext(PostsContext);
+  const { user } = route.params as RouteParams;
 
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderDeatils>
           <Avatar source={require("../../assets/avatar1.png")} />
-          <UserName>{users[userId - 1].username}</UserName>
+          <UserName>{user.username}</UserName>
         </HeaderDeatils>
 
         <SectionArea>
@@ -43,23 +41,23 @@ export default function UserDetails() {
         <Content>
           <Info>
             <TextLabel>Nome:</TextLabel>
-            <TextContent>{users[userId - 1].name}</TextContent>
+            <TextContent>{user.name}</TextContent>
           </Info>
           <Info>
             <TextLabel>Username:</TextLabel>
-            <TextContent>{users[userId - 1].username}</TextContent>
+            <TextContent>{user.username}</TextContent>
           </Info>
           <Info>
             <TextLabel>Telefone:</TextLabel>
-            <TextContent>{users[userId - 1].phone}</TextContent>
+            <TextContent>{user.phone}</TextContent>
           </Info>
           <Info>
             <TextLabel>Website:</TextLabel>
-            <TextContent>{users[userId - 1].website}</TextContent>
+            <TextContent>{user.website}</TextContent>
           </Info>
           <Info>
             <TextLabel>Email:</TextLabel>
-            <TextContent>{users[userId - 1].email}</TextContent>
+            <TextContent>{user.email}</TextContent>
           </Info>
         </Content>
 
@@ -71,27 +69,27 @@ export default function UserDetails() {
         <Content>
           <Info>
             <TextLabel>Rua:</TextLabel>
-            <TextContent>{users[userId - 1].address.street}</TextContent>
+            <TextContent>{user.address.street}</TextContent>
           </Info>
           <Info>
             <TextLabel>Suíte:</TextLabel>
-            <TextContent>{users[userId - 1].address.suite}</TextContent>
+            <TextContent>{user.address.suite}</TextContent>
           </Info>
           <Info>
             <TextLabel>Cidade:</TextLabel>
-            <TextContent>{users[userId - 1].address.city}</TextContent>
+            <TextContent>{user.address.city}</TextContent>
           </Info>
           <Info>
             <TextLabel>CEP:</TextLabel>
-            <TextContent>{users[userId - 1].address.zipcode}</TextContent>
+            <TextContent>{user.address.zipcode}</TextContent>
           </Info>
           <Info>
             <TextLabel>Latitude:</TextLabel>
-            <TextContent>{users[userId - 1].address.geo.lat}</TextContent>
+            <TextContent>{user.address.geo.lat}</TextContent>
           </Info>
           <Info>
             <TextLabel>Longitude:</TextLabel>
-            <TextContent>{users[userId - 1].address.geo.lng}</TextContent>
+            <TextContent>{user.address.geo.lng}</TextContent>
           </Info>
         </Content>
 
@@ -102,22 +100,15 @@ export default function UserDetails() {
         <Content>
           <Info>
             <TextLabel>Nome:</TextLabel>
-            <TextContent>{users[userId - 1].company.name}</TextContent>
+            <TextContent>{user.company.name}</TextContent>
           </Info>
           <Info>
             <TextLabel>Setor:</TextLabel>
-            <TextContent>{users[userId - 1].company.bs}</TextContent>
+            <TextContent>{user.company.bs}</TextContent>
           </Info>
           
         </Content>
       </ScrollView>
     </Container>
-
-    /*<View>
-        <Text>Cidade: {users[userId-1].address.city}</Text>
-        <Text>Empresa: {users[userId-1].company.name}</Text>
-        <Text>Site: {users[userId-1].website}</Text>
-    </View>
-    */
   );
 }
