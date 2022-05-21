@@ -7,12 +7,19 @@ import UserPost from "../pages/UserPost";
 import EditPost from "../pages/EditPost";
 import SelectUser from "../pages/SelectUser";
 import NewPost from "../pages/NewPost";
+import Welcome from "../pages/Welcome";
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={{ headerShown: false }}
+      />
+      
       <Stack.Screen
         name="Home"
         component={Home}
