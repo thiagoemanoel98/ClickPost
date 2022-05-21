@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Entypo } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
 
-import { IUser, PostsContext } from "../../context/PostContext";
+import { IUser } from "../../context/PostContext";
 
 import {
   HeaderPost,
-  TitlePost,
-  TouchPost,
+  ContainerNames,
+  TextUserName,
   ContainerPost,
   TextName,
   Avatar,
   ButtonPost,
+  
 } from "./styles";
 
 interface Props {
@@ -34,9 +35,19 @@ export const UserList: React.FC<Props> = (props) => {
 
       <HeaderPost onPress={() => {HandleNavigate(props.user)}}>
         <Avatar source={require("../../assets/avatar1.png")} />
-        <TextName>{props.user.name}</TextName>
+        <ContainerNames>
+          <TextName>{props.user.name}</TextName>
+          <TextUserName>@{props.user.username}</TextUserName>
+        </ContainerNames>
       </HeaderPost>
-
+     
+      <ButtonPost
+        onPress={() => {
+          HandleNavigate(props.user);
+        }}
+      >
+        <Entypo name="forward" size={30} color="rgba(51, 176, 246, 1)" />
+      </ButtonPost>
     </ContainerPost>
   );
 };

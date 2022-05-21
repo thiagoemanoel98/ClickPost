@@ -4,12 +4,12 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import {PostList} from "../../components/PostList";
-import { PostsContext } from "../../context/PostContext";
+import {PostsContext } from "../../context/PostContext";
 import { Container, ButtonPost } from "./styles";
 import Header from "../../components/Header";
 
 interface ScreenNavigationProp {
-  navigate: (screen: string) => void;
+  navigate: (screen: string, params?: unknown) => void;
 }
 
 export default function Home() {
@@ -33,10 +33,10 @@ export default function Home() {
         <View>
           <FlatList
             data={posts.slice().reverse()}
+            onEndReachedThreshold={0.5}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => <PostList post={item} user={users[users.findIndex((x) => x.id.toString() === item.userId.toString())]} />}
           />  
-      
         </View>
       )}
 

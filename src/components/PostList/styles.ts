@@ -1,8 +1,7 @@
 import styled from "styled-components/native";
 
 export const ContainerPost = styled.View`
-  margin-top: 8px;
-  margin: 8px 2%;
+  margin: 8px 8px 2%;
   background-color: #FFF;
   border-radius: 8px;
   box-shadow: 1px 1px 3px rgba(18, 18, 18, 1);

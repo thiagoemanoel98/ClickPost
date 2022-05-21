@@ -47,7 +47,7 @@ export const AreaBody = styled.View`
     background-color: #FFF;
     border-radius: 8px;
     margin-bottom: 30px;
-    
+    text-align: justify;
     height: 40%;
     
 `;
@@ -65,7 +65,7 @@ export const InputBody = styled.TextInput`
     margin: 10px;
     color: #000;
     font-size: 20px;
-    text-align: justify;    
+    text-align: justify;  
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -83,15 +83,17 @@ export const ButtonText = styled.Text`
 `;  
 
 export const ActionsArea = styled.View`
-    flex: 1;
     flex-direction: row;
     justify-content: space-around;
 `;
 
-export const ButtonEdit = styled.TouchableOpacity`
-
+export const TextConfirm = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
 `;
 
-export const ButtonDelete = styled.TouchableOpacity`
-
+export const TouchArea = styled.View`
+    justify-content: center;
+    align-items: center;
 `;

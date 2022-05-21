@@ -1,15 +1,15 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from '@expo/vector-icons'; 
+
 
 import { IPost, IUser, PostsContext } from "../../context/PostContext";
 import {
   Container,
   InputTitle,
   InputBody,
-  Button,
-  ButtonText,
   AreaTitle,
   AreaBody,
   LabelTitle,
@@ -17,8 +17,8 @@ import {
   HeaderPage,
   PageTitle2,
   ButtonEdit,
-  ButtonDelete,
   ActionsArea,
+  TextConfirm,
 } from "./styles";
 
 interface RouteParams {
@@ -96,10 +96,16 @@ export default function EditPost() {
       </AreaBody>
 
       <ActionsArea>
-        <ButtonEdit onPress={() => handleEditPost()}>
-          <Text style={{ fontSize: 30 }}>Confirmar Edição</Text>
-        </ButtonEdit>
+
+        <TouchableOpacity onPress={() => handleEditPost()}>
+          <AntDesign name="checkcircle" size={70} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleEditPost()}>
+          <TextConfirm>Confirmar</TextConfirm>
+        </TouchableOpacity> 
+               
       </ActionsArea>
+
     </Container>
   );
 }

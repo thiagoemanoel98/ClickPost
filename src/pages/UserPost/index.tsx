@@ -1,24 +1,23 @@
 import React from "react";
-import { Text, Alert } from "react-native";
+import { TouchableOpacity, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
 
 import { IPost, IUser, PostsContext } from "../../context/PostContext";
 import {
   Container,
   InputTitle,
   InputBody,
-  Button,
-  ButtonText,
   AreaTitle,
   AreaBody,
   LabelTitle,
   PageTitle,
   HeaderPage,
   PageTitle2,
-  ButtonEdit,
-  ButtonDelete,
   ActionsArea,
+  TextConfirm,
+  TouchArea,
 } from "./styles";
 
 interface RouteParams {
@@ -56,8 +55,8 @@ export default function UserPost() {
 
   const handleDeleteSuccess = () => {
     deletePost(post);
-    navigate('Home');
-  }
+    navigate("Home");
+  };
 
   return (
     <Container>
@@ -69,7 +68,6 @@ export default function UserPost() {
       <LabelTitle>Título:</LabelTitle>
       <AreaTitle>
         <InputTitle
-          placeholder="Digite o título"
           value={post.title}
           editable={false}
           multiline={true}
@@ -80,7 +78,6 @@ export default function UserPost() {
       <LabelTitle>Conteúdo:</LabelTitle>
       <AreaBody>
         <InputBody
-          placeholder="Digite a publicação"
           value={post.body}
           editable={false}
           multiline={true}
@@ -89,13 +86,23 @@ export default function UserPost() {
       </AreaBody>
 
       <ActionsArea>
-        <ButtonEdit onPress={() => handleEdit()}>
-          <Text style={{ fontSize: 30 }}>Editar</Text>
-        </ButtonEdit>
+        <TouchArea>
+          <TouchableOpacity onPress={() => handleEdit()}>
+            <AntDesign name="edit" size={45} color="#202225" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleEdit()}>
+            <TextConfirm>Editar</TextConfirm>
+          </TouchableOpacity>
+        </TouchArea>
 
-        <ButtonDelete onPress={() => handleDelete()}>
-          <Text style={{ fontSize: 30 }}>Excluir</Text>
-        </ButtonDelete>
+        <TouchArea>
+          <TouchableOpacity onPress={() => handleDelete()}>
+            <AntDesign name="delete" size={45} color="#202225" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleDelete()}>
+            <TextConfirm>Apagar</TextConfirm>
+          </TouchableOpacity>
+        </TouchArea>
       </ActionsArea>
     </Container>
   );
