@@ -5,9 +5,13 @@ import { PostsContext } from "../../context/PostContext";
 
 import { Container, TitleText, Button, ButtonText } from "./styles";
 
+import * as Animatable from 'react-native-animatable';
+
+
 interface ScreenNavigationProp {
   navigate: (screen: string) => void;
 }
+const TitleAnimated = Animatable.createAnimatableComponent(TitleText);
 
 export default function Welcome() {
   const { navigate } = useNavigation<ScreenNavigationProp>();
@@ -15,9 +19,9 @@ export default function Welcome() {
 
   return (
     <Container>
-      <TitleText>
+      <TitleAnimated  animation="flipInY"> 
         Click<Text style={{ color: "rgba(51, 176, 246, 1)" }}>Posts</Text>
-      </TitleText>
+      </TitleAnimated>
 
       {loading ? (
         <Button onPress={() => {}}>

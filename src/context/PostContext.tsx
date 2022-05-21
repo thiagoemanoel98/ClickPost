@@ -91,8 +91,6 @@ export const PostsProvider: React.FC<IProps> = ({ children }) => {
         setLoading(false);
         console.log("Há dados no Async");
 
-        //await AsyncStorage.removeItem(PostsKey);
-        //await AsyncStorage.removeItem(UsersKey);
       } else {
         // Carregue novos dados da API
         const response = await api.get<IPost[]>("/posts");
