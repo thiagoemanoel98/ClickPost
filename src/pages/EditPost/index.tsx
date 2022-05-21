@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { PostsContext } from "../../context/PostContext";
 import {
@@ -17,36 +18,55 @@ import {
   PageTitle2,
   ButtonEdit,
   ButtonDelete,
-  ActionsArea
+  ActionsArea,
 } from "./styles";
 
 interface RouteParams {
-  id: number,
+  id: number;
   idUser: number;
 }
 
+interface ScreenNavigationProp {
+  navigate: (screen: string, params?: unknown) => void;
+}
+
 export default function EditPost() {
-  const { posts, users } = React.useContext(PostsContext);
+  const { posts, users, editPost } = React.useContext(PostsContext);
   const route = useRoute();
   const { id, idUser } = route.params as RouteParams; // Id Post
+  const navigation = useNavigation();
+  const { navigate } = useNavigation<ScreenNavigationProp>();
+
+  const [title, setTitle] = React.useState('');
+  const [body, setBody] = React.useState('');
 
   const handleEditPost = () => {
-    console.log('Delete');
-  }
+    const DATA = {
+      userId: idUser,
+      id: id,
+      title: title,
+      body: body,
+    };
+
+    editPost(DATA);
+    navigate("Home");
+  };
 
   return (
     <Container>
       <HeaderPage>
         <PageTitle>Autor: </PageTitle>
-        <PageTitle2>{users[idUser-1].name} </PageTitle2>
+        <PageTitle2>{users[idUser - 1].name} </PageTitle2>
       </HeaderPage>
 
       <LabelTitle>Título:</LabelTitle>
       <AreaTitle>
         <InputTitle
-          value={posts[id-1].title}
+          value={title}
+          placeholder={posts[id-1].title}
           editable={true}
           multiline={true}
+          onChangeText={(text) => setTitle(text)}
           autoCorrect={true}
           maxLength={100}
           placeholderTextColor="rgba(0, 0, 0, 0.25)"
@@ -56,10 +76,11 @@ export default function EditPost() {
       <LabelTitle>Conteúdo:</LabelTitle>
       <AreaBody>
         <InputBody
-          value={posts[id-1].body}
+          placeholder={posts[id-1].body}
           editable={true}
           autoCorrect={true}
           multiline={true}
+          onChangeText={(text) => setBody(text)}
           maxLength={300}
           placeholderTextColor="rgba(0, 0, 0, 0.25)"
         />
@@ -67,9 +88,8 @@ export default function EditPost() {
 
       <ActionsArea>
         <ButtonEdit onPress={() => handleEditPost()}>
-          <Text style = {{fontSize: 30}}>Confirmar Edição</Text>
+          <Text style={{ fontSize: 30 }}>Confirmar Edição</Text>
         </ButtonEdit>
-     
       </ActionsArea>
     </Container>
   );
