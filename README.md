@@ -8,24 +8,20 @@ Desafio realizado durante seleção de estagiário em React Native, na Clicksoft
 <p align="center">
     <img width = "200" height= "400" src = "src/assets/to_readme/print1.png">
     <img width = "200" height= "400" src = "src/assets/to_readme/print2.png">
-</p>
-
-<p align="center">
     <img width = "200" height= "400" src = "src/assets/to_readme/print3.png">
     <img width = "200" height= "400" src = "src/assets/to_readme/print4.png">
 </p>
 
-## Tecnologias
-- React Native 
-- TypeScript
-- Expo
-- Axios
-- Async-storage
-- react-native-vector-icons
-- react-native-animatable
-- styled-components
+## :iphone: Tecnologias
+- `React Native` 
+- `TypeScript`
+- `Expo`
+- `Axios`
+- `Async-storage`
+- `react-native-vector-icons`
+- `react-native-animatable`
+- `styled-components`
 - ...
-___
 
 ## :hammer: Funcionalidades do App
 
@@ -35,9 +31,8 @@ ___
 - `Listar usuários`
 - `Requisições para a API (Get, PUT e DELETE)`
 
-___
 
-## Instalação
+## 💻 Instalação
 
 Clone o projeto e acesse a sua pasta: 
 
