@@ -6,10 +6,10 @@ Desafio realizado durante seleção de estagiário em React Native, na Clicksoft
 ## Screenshots
 
 <p align="center">
-    <img width = "200" height= "400" src = "src/assets/to_readme/print1.png">
-    <img width = "200" height= "400" src = "src/assets/to_readme/print2.png">
-    <img width = "200" height= "400" src = "src/assets/to_readme/print3.png">
-    <img width = "200" height= "400" src = "src/assets/to_readme/print4.png">
+    <img width = "180" height= "400" src = "src/assets/to_readme/print1.png">
+    <img width = "180" height= "400" src = "src/assets/to_readme/print2.png">
+    <img width = "180" height= "400" src = "src/assets/to_readme/print3.png">
+    <img width = "180" height= "400" src = "src/assets/to_readme/print4.png">
 </p>
 
 ## :iphone: Tecnologias
